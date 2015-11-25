@@ -1,0 +1,19 @@
+# Learn more about services, parameters and containers at
+# http://symfony.com/doc/current/book/service_container.html
+parameters:
+#    parameter_name: value
+
+services:
+  app.listeners.listener_write_in_std_out:
+      class: AppBundle\Listeners\ListenerWriteInGoogleChrome
+      arguments: [ @logger ]
+      tags:
+          - { name: kernel.event_subscriber }
+          - { name: monolog.logger, channel: chromephp }
+
+  app.listeners.listener_write_in_file:
+      class: AppBundle\Listeners\ListenerWriteInFile
+      arguments: [ @logger ]
+      tags:
+          - { name: kernel.event_subscriber }
+          - { name: monolog.logger, channel: main }
